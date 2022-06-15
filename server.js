@@ -1,23 +1,12 @@
-// Imports
+// ===== IMPORTS =====
 const express = require('express')
 const app = express()
-require('dotenv').config
+require('dotenv').config()
+require('./cofig/database')
 
 // ===== ROUTES =====
-// Index
-// app.use('/')
-
-// New
-
-// Delete
-
-// Update
-
-// Create
-
-// Edit
-
-// Show
+// Movies
+app.use('/api/v1/movies', require('./routes/api/movies.js'))
 
 // ===== PORT =====
 const PORT = 8080
