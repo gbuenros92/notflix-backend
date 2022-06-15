@@ -30,9 +30,14 @@ const userSchema = new Schema({
     },
     picture: String,
     active: Boolean,
-    favorites: []
+    favorites: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Movie'
+        }
+    ]
 }, {
     timestamps: true
 })
 
-module.exports = mongoose.model('User, userSchema')
+module.exports = mongoose.model('User', userSchema)
