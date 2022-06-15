@@ -2,7 +2,10 @@
 const express = require('express')
 const app = express()
 require('dotenv').config()
-require('./cofig/database')
+require('./config/database')
+
+// ===== MIDDLEWARES =====
+app.use(express.json())
 
 // ===== ROUTES =====
 // Movies
