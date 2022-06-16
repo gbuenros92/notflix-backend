@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+const saltRounds = 10
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -37,7 +39,21 @@ const userSchema = new Schema({
         }
     ]
 }, {
-    timestamps: true
+    timestamps: true, 
+    toJSON: {
+        // ret is the JSON'd User document
+        transform: function(doc, ret) {
+            // We don't want to return the passowrd back to the client
+            delete ret.password
+            return ret
+        }
+    }
+})
+
+userSchema.pre('save', async function(next) {
+    // This will only hash the passowrd for a newly created user
+    this.password = await bcrypt.hash(this.password, saltRounds)
+    return next()
 })
 
 module.exports = mongoose.model('User', userSchema)
