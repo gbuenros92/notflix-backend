@@ -7,9 +7,14 @@ require('./config/database')
 // ===== MIDDLEWARES =====
 app.use(express.json())
 
+// Check for token and create req.user
+app.use(require('./config/checkToken'))
+
 // ===== ROUTES =====
+// Protect API routes below from unauthorized users
+const ensureLoggedIn = require('./config/ensureLoggedIn')
 // Movies
-app.use('/api/v1/movies', require('./routes/api/movies'))
+app.use('/api/v1/movies', ensureLoggedIn, require('./routes/api/movies'))
 
 // Users
 app.use('/api/v1/users', require('./routes/api/users'))
