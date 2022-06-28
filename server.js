@@ -1,11 +1,13 @@
 // ===== IMPORTS =====
 const express = require('express')
 const app = express()
+const cors = require('cors')
 require('dotenv').config()
 require('./config/database')
 
 // ===== MIDDLEWARES =====
 app.use(express.json())
+app.use(cors())
 
 // Check for token and create req.user
 app.use(require('./config/checkToken'))
